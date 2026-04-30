@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ostil Cafe | Crafted slowly. Served warmly.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables */
+        :root {
+            --c-espresso: #3b1f0e;
+            --c-cream: #f2e8d9;
+            --c-terracotta: #c4673a;
+            --c-offwhite: #faf7f2;
+            --c-charcoal: #222222;
+            
+            --f-heading: 'DM Serif Display', serif;
+            --f-body: 'DM Sans', sans-serif;
+            
+            --transition: all 0.3s ease;
+            --shadow-soft: 0 10px 30px rgba(59, 31, 14, 0.08);
+            --shadow-hover: 0 15px 40px rgba(59, 31, 14, 0.15);
+        }
+
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--f-body);
+            color: var(--c-charcoal);
+            background-color: var(--c-offwhite);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6, .logo {
+            font-family: var(--f-heading);
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Typography */
+        h2 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--c-espresso); }
+        .sub-heading { font-size: 1.1rem; color: #555; margin-bottom: 3rem; }
+        .text-center { text-align: center; }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            font-family: var(--f-body);
+            font-weight: 500;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--c-terracotta);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #a85730;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(196, 103, 58, 0.3);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border-color: var(--c-cream);
+            color: var(--c-cream);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--c-cream);
+            color: var(--c-espresso);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-terracotta {
+            background-color: transparent;
+            border-color: var(--c-terracotta);
+            color: var(--c-terracotta);
+        }
+
+        .btn-outline-terracotta:hover {
+            background-color: var(--c-terracotta);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        .animate-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .animate-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 1. STICKY NAVIGATION BAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: var(--transition);
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            background-color: var(--c-cream);
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(59, 31, 14, 0.1);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            color: var(--c-cream);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled .logo {
+            color: var(--c-espresso);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--c-cream);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .navbar.scrolled .nav-links a {
+            color: var(--c-espresso);
+        }
+
+        .nav-links a:hover {
+            color: var(--c-terracotta);
+        }
+
+        .nav-links .btn-primary {
+            color: white !important;
+            padding: 0.6rem 1.2rem;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background-color: var(--c-cream);
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled .hamburger span {
+            background-color: var(--c-espresso);
+        }
+
+        /* 2. HERO SECTION */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(rgba(59, 31, 14, 0.6), rgba(59, 31, 14, 0.4)), 
+                        radial-gradient(circle at center, #c4673a 0%, #3b1f0e 100%);
+            color: var(--c-cream);
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            z-index: 2;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(242, 232, 217, 0.15);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(242, 232, 217, 0.3);
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            color: var(--c-cream);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--c-cream);
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-15px) translateX(-50%); }
+            60% { transform: translateY(-7px) translateX(-50%); }
+        }
+
+        /* 3. QUICK INFO STRIP */
+        .quick-info {
+            background-color: var(--c-cream);
+            padding: 3rem 0;
+            border-top: 1px solid rgba(196, 103, 58, 0.2);
+            border-bottom: 1px solid rgba(196, 103, 58, 0.2);
+        }
+
+        .quick-info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .info-item h3 {
+            font-family: var(--f-body);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--c-espresso);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .info-item p {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        /* 4. MENU HIGHLIGHTS SECTION */
+        .menu-section {
+            padding: 6rem 0;
+            background-color: var(--c-offwhite);
+        }
+
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .menu-tab-btn {
+            background: none;
+            border: none;
+            font-family: var(--f-heading);
+            font-size: 1.5rem;
+            color: #999;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .menu-tab-btn.active {
+            color: var(--c-espresso);
+        }
+
+        .menu-tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: var(--c-terracotta);
+            transition: var(--transition);
+        }
+
+        .menu-tab-btn.active::after {
+            width: 80%;
+        }
+
+        .menu-grid {
+            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .menu-grid.active {
+            display: grid;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .menu-img-placeholder {
+            height: 200px;
+            background: linear-gradient(135deg, #e3cdb8 0%, #c4673a 100%);
+        }
+
+        .menu-card:nth-child(even) .menu-img-placeholder {
+            background: linear-gradient(135deg, #d8bfa8 0%, #a45028 100%);
+        }
+
+        .menu-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-title {
+            font-family: var(--f-heading);
+            font-size: 1.2rem;
+            color: var(--c-espresso);
+        }
+
+        .menu-price {
+            font-weight: 700;
+            color: var(--c-terracotta);
+        }
+
+        .menu-desc {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .add-to-order {
+            align-self: flex-start;
+            background: var(--c-cream);
+            color: var(--c-espresso);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .add-to-order:hover {
+            background: var(--c-terracotta);
+            color: white;
+        }
+
+        /* 5. OUR STORY SECTION */
+        .story-section {
+            padding: 6rem 0;
+            background-color: white;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .story-image-placeholder {
+            width: 100%;
+            height: 600px;
+            background: linear-gradient(45deg, #3b1f0e, #c4673a, #f2e8d9);
+            border-radius: 8px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .story-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            color: #444;
+        }
+
+        .signature {
+            font-family: var(--f-heading);
+            font-size: 1.5rem;
+            color: var(--c-terracotta);
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .link-with-arrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            color: var(--c-espresso);
+        }
+
+        .link-with-arrow:hover {
+            color: var(--c-terracotta);
+            gap: 0.8rem;
+        }
+
+        /* 6. SOCIAL PROOF / REVIEWS */
+        .reviews-section {
+            padding: 6rem 0;
+            background-color: var(--c-cream);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .stars {
+            color: var(--c-terracotta);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .quote {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: #555;
+            font-size: 1.05rem;
+        }
+
+        .reviewer {
+            font-weight: 700;
+            color: var(--c-espresso);
+            font-size: 0.95rem;
+        }
+
+        /* 7. RESERVE A TABLE SECTION */
+        .reserve-section {
+            padding: 6rem 0;
+            background-color: var(--c-espresso);
+            color: var(--c-cream);
+        }
+
+        .reserve-section h2 {
+            color: var(--c-cream);
+        }
+
+        .reserve-section .sub-heading {
+            color: #d1c5b4;
+        }
+
+        .reserve-form {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(242, 232, 217, 0.05);
+            padding: 3rem;
+            border-radius: 8px;
+            border: 1px solid rgba(242, 232, 217, 0.1);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            background: transparent;
+            border: 1px solid rgba(242, 232, 217, 0.3);
+            border-radius: 4px;
+            color: var(--c-cream);
+            font-family: var(--f-body);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--c-terracotta);
+            background: rgba(242, 232, 217, 0.1);
+        }
+
+        .form-control::placeholder {
+            color: rgba(242, 232, 217, 0.5);
+        }
+
+        /* Style datetimes and selects */
+        select.form-control option {
+            background-color: var(--c-espresso);
+            color: var(--c-cream);
+        }
+        
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+
+        .form-notice {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #d1c5b4;
+            margin-top: 1.5rem;
+            display: block;
+        }
+
+        .urgency-nudge {
+            color: var(--c-terracotta);
+            font-weight: 700;
+            display: block;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* 8. ATMOSPHERE / GALLERY SECTION */
+        .gallery-section {
+            padding: 6rem 0;
+            background-color: var(--c-offwhite);
+        }
+
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 250px;
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+        .gallery-item:nth-child(2) { background: linear-gradient(135deg, #a45028, #7a3617); }
+        .gallery-item:nth-child(3) { background: linear-gradient(135deg, #c4673a, #e3cdb8); }
+        .gallery-item:nth-child(4) { background: linear-gradient(135deg, #e3cdb8, #8c6a51); }
+        .gallery-item:nth-child(5) { background: linear-gradient(135deg, #8c6a51, #3b1f0e); grid-column: span 2; }
+        .gallery-item:nth-child(6) { background: linear-gradient(135deg, #5c3016, #c4673a); }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(45deg, rgba(59,31,14,0.5), rgba(196,103,58,0.2));
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover::before {
+            background: linear-gradient(45deg, rgba(59,31,14,0.1), rgba(196,103,58,0.1));
+            transform: scale(1.05);
+        }
+
+        /* 9. OPENING HOURS & LOCATION STRIP */
+        .location-section {
+            background-color: var(--c-terracotta);
+            color: white;
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 400px;
+        }
+
+        .hours-block {
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-right: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .hours-block h2, .address-block h2 {
+            color: white;
+            font-size: 2rem;
+        }
+
+        .hours-table {
+            width: 100%;
+            max-width: 300px;
+            margin: 2rem auto;
+            text-align: left;
+        }
+
+        .hours-table li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .address-block {
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            max-width: 400px;
+            height: 150px;
+            background: rgba(255,255,255,0.1);
+            border: 1px dashed rgba(255,255,255,0.4);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0;
+            font-size: 2rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        /* 10. NEWSLETTER / LOYALTY STRIP */
+        .newsletter-section {
+            padding: 5rem 0;
+            background-color: var(--c-offwhite);
+            text-align: center;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 2rem auto 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .newsletter-form input {
+            flex-grow: 1;
+            padding: 1rem 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: var(--f-body);
+            font-size: 1rem;
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--c-terracotta);
+        }
+
+        .spam-notice {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        /* 11. FOOTER */
+        .footer {
+            background-color: var(--c-charcoal);
+            color: #bbb;
+            padding: 5rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-logo {
+            font-family: var(--f-heading);
+            font-size: 2rem;
+            color: var(--c-cream);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .footer h4 {
+            color: white;
+            font-family: var(--f-body);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--c-terracotta);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background: var(--c-terracotta);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+
+        /* MEDIA QUERIES */
+        @media (max-width: 992px) {
+            .story-grid, .location-grid {
+                grid-template-columns: 1fr;
+            }
+            .hours-block {
+                border-right: none;
+                border-bottom: 1px solid rgba(255,255,255,0.2);
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3.5rem; }
+            
+            .hamburger { display: flex; }
+            
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--c-cream);
+                flex-direction: column;
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease-out;
+                box-shadow: 0 10px 20px rgba(59, 31, 14, 0.1);
+            }
+
+            .nav-links.active {
+                max-height: 400px;
+                padding: 1rem 0 2rem;
+            }
+
+            .navbar .nav-links a {
+                color: var(--c-espresso);
+                padding: 1rem 2rem;
+                display: block;
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links .btn-primary {
+                margin: 1rem auto 0;
+                width: max-content;
+            }
+
+            .quick-info-grid, .reviews-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .masonry-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .reserve-form {
+                padding: 2rem 1.5rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .masonry-grid { grid-template-columns: 1fr; grid-auto-rows: 200px; }
+            .gallery-item:nth-child(1) { grid-column: span 1; }
+            .gallery-item:nth-child(5) { grid-column: span 1; }
+            .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .hero h1 { font-size: 2.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                OSTIL <span>☕</span>
+            </a>
+            <div class="hamburger" id="hamburger" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#story">Our Story</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#reserve" class="btn btn-primary">Order Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero" id="home">
+        <div class="hero-content animate-up">
+            <div class="badge">⭐ Voted Best Local Café 2024</div>
+            <h1>Life Begins After Coffee</h1>
+            <p>Ostil Cafe — crafted with care, served with warmth, made for slow mornings</p>
+            <div class="hero-btns">
+                <a href="#menu" class="btn btn-primary">Explore Our Menu</a>
+                <a href="#reserve" class="btn btn-outline">Reserve a Table</a>
+            </div>
+        </div>
+        <div class="scroll-down">↓</div>
+    </header>
+
+    <section class="quick-info">
+        <div class="container quick-info-grid">
+            <div class="info-item animate-up">
+                <h3>☕ Specialty Coffee</h3>
+                <p>Single-origin beans, brewed to perfection</p>
+            </div>
+            <div class="info-item animate-up" style="transition-delay: 0.1s;">
+                <h3>🥐 Freshly Baked</h3>
+                <p>Pastries made in-house every morning</p>
+            </div>
+            <div class="info-item animate-up" style="transition-delay: 0.2s;">
+                <h3>📍 Come As You Are</h3>
+                <p>A space for everyone, every mood</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="menu-section" id="menu">
+        <div class="container">
+            <div class="text-center animate-up">
+                <h2>What We're Brewing</h2>
+                <p class="sub-heading">A curated selection of our most-loved items</p>
+            </div>
+
+            <div class="menu-tabs animate-up">
+                <button type="button" class="menu-tab-btn active" data-target="drinks">Drinks</button>
+                <button type="button" class="menu-tab-btn" data-target="bites">Bites</button>
+            </div>
+
+            <div class="menu-grid active" id="drinks">
+                <div class="menu-card">
+                    <div class="menu-img-placeholder"></div>
+                    <div class="menu-content">
+                        <div class="menu-header">
+                            <span class="menu-title">Signature Ostil Latte</span>
+                            <span class="menu-price">$5.50</span>
+                        </div>
+                        <p class="menu-desc">House-roasted espresso with steamed oat milk and vanilla bean.</p>
+                        <button type="button" class="add-to-order">+ Add to Order</button>
+                    </div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-img-placeholder"></div>
+                    <div class="menu-content">
+                        <div class="menu-header">
+                            <span class="menu-title">Iced Brown Sugar Espresso</span>
+                            <span class="menu-price">$6.00</span>
+                        </div>
+                        <p class="menu-desc">Shaken espresso, dark brown sugar syrup, topped with milk.</p>
+                        <button type="button" class="add-to-order">+ Add to Order</button>
+                    </div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-img-placeholder"></div>
+                    <div class="menu-content">
+                        <div class="menu-header">
+                            <span class="menu-title">Matcha Oat Milk Latte</span>
+                            <span class="menu-price">$5.80</span>
+                        </div>
+                        <p class="menu-desc">Ceremonial grade matcha whisked to perfection.</p>
+                        <button type="button" class="add-to-order">+ Add to Order</button>
+                    </div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-img-placeholder"></div>
+                    <div class="menu-content">
+                        <div class="menu-header">
+                            <span class="menu-title">Classic Americano</span>
+                            <span class="menu-price">$4.00</span>
+                        </div>
+                        <p class="menu-desc">Rich double shot of espresso over hot water.</p>
+                        <button type="button" class="add-to-order">+ Add to Order</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-grid" id="bites">
+                <div class="menu-card">
+                    <div class="menu-img-placeholder"></div>
+                    <div class="menu-content">
+                        <div class="menu-header">
+                            <span class="menu-title">Butter Croissant</span>
+                            <span class="menu-price">$3.50</span>
+                        </div>
+                        <p class="menu-desc">Flaky, golden, and baked fresh every morning.</p>
+                        <button type="button" class="add-to-order">+ Add to Order</button>
+                    </div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-img-placeholder"></div>
+                    <div class="menu-content">
+                        <div class="menu-header">
+                            <span class="menu-title">Avocado Toast</span>
+                            <span class="menu-price">$9.00</span>
+                        </div>
+                        <p class="menu-desc">Smashed avo on sourdough with chili flakes and microgreens.</p>
+                        <button type="button" class="add-to-order">+ Add to Order</button>
+                    </div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-img-placeholder"></div>
+                    <div class="menu-content">
+                        <div class="menu-header">
+                            <span class="menu-title">Banana Walnut Muffin</span>
+                            <span class="menu-price">$4.00</span>
+                        </div>
+                        <p class="menu-desc">Warm, spiced muffin loaded with roasted walnuts.</p>
+                        <button type="button" class="add-to-order">+ Add to Order</button>
+                    </div>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-img-placeholder"></div>
+                    <div class="menu-content">
+                        <div class="menu-header">
+                            <span class="menu-title">Egg & Cheese Brioche</span>
+                            <span class="menu-price">$7.50</span>
+                        </div>
+                        <p class="menu-desc">Soft scrambled eggs, cheddar, and house sauce on a brioche bun.</p>
+                        <button type="button" class="add-to-order">+ Add to Order</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center animate-up" style="margin-top: 3rem;">
+                <a href="#" class="btn btn-outline-terracotta">View Full Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="story-section" id="story">
+        <div class="container story-grid">
+            <div class="story-image-placeholder animate-up"></div>
+            <div class="story-content animate-up">
+                <h2>More Than a Cup of Coffee</h2>
+                <p>Ostil started as a quiet passion project in a small home kitchen. Today, it has grown into a neighborhood staple—a place where the smell of roasting beans and fresh pastries greets you at the door.</p>
+                <p>We are deeply committed to the craft. From sourcing fair-trade, single-origin beans to prioritizing seasonal ingredients, every step is intentional. We believe in the slow craft of making things right.</p>
+                <p>But beyond the coffee, our mission is community. Ostil is designed to be your space. Whether you're here to power through a workday, rest with a book, or connect with an old friend, you belong here.</p>
+                <div class="signature">— The Ostil Team</div>
+                <a href="#" class="link-with-arrow">Meet the Team <span>→</span></a>
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews-section">
+        <div class="container">
+            <h2 class="text-center animate-up">Straight From Our Regulars</h2>
+            <div class="reviews-grid" style="margin-top: 3rem;">
+                <div class="review-card animate-up">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote">"The best latte I've ever had. Period. Ostil is my second home."</p>
+                    <p class="reviewer">Maya R., Cape Town</p>
+                </div>
+                <div class="review-card animate-up" style="transition-delay: 0.1s;">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote">"Beautiful space, incredible pastries, and the staff genuinely make you feel at home."</p>
+                    <p class="reviewer">Jordan T., Johannesburg</p>
+                </div>
+                <div class="review-card animate-up" style="transition-delay: 0.2s;">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote">"I work from here three times a week. The vibes are unmatched."</p>
+                    <p class="reviewer">Lerato M., Pretoria</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="reserve-section" id="reserve">
+        <div class="container">
+            <div class="text-center animate-up">
+                <h2>Find Your Seat</h2>
+                <p class="sub-heading">Whether it's a solo work session or a catch-up with friends — we've got your table.</p>
+                <span class="urgency-nudge">Weekends fill up fast — secure your table early</span>
+            </div>
+
+            <form class="reserve-form animate-up" onsubmit="event.preventDefault(); alert('Reservation feature coming soon!');">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" class="form-control" placeholder="Jane Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" id="date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Time</label>
+                        <select id="time" class="form-control" required>
+                            <option value="" disabled selected>Select Time</option>
+                            <option value="morning">Morning (7AM - 11AM)</option>
+                            <option value="afternoon">Afternoon (12PM - 4PM)</option>
+                            <option value="evening">Evening (5PM - Close)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="guests">Number of Guests</label>
+                        <select id="guests" class="form-control" required>
+                            <option value="1">1 Person</option>
+                            <option value="2" selected>2 People</option>
+                            <option value="3">3 People</option>
+                            <option value="4">4 People</option>
+                            <option value="5">5 People</option>
+                            <option value="6">6 People</option>
+                            <option value="7">7 People</option>
+                            <option value="8+">8+ People</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="requests">Special Requests</label>
+                        <textarea id="requests" class="form-control" rows="3" placeholder="Window seat, high chair needed..."></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Reserve My Table</button>
+                <span class="form-notice">Walk-ins always welcome. Reservations guarantee your spot.</span>
+            </form>
+        </div>
+    </section>
+
+    <section class="gallery-section" id="gallery">
+        <div class="container">
+            <div class="text-center animate-up">
+                <h2>The Ostil Feeling</h2>
+                <p class="sub-heading">Come for the coffee. Stay for the feeling.</p>
+            </div>
+            <div class="masonry-grid animate-up">
+                <div class="gallery-item"></div>
+                <div class="gallery-item"></div>
+                <div class="gallery-item"></div>
+                <div class="gallery-item"></div>
+                <div class="gallery-item"></div>
+                <div class="gallery-item"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="location-section" id="contact">
+        <div class="location-grid">
+            <div class="hours-block animate-up">
+                <h2>Opening Hours</h2>
+                <ul class="hours-table">
+                    <li><span>Monday – Friday</span> <span>7:00 AM – 8:00 PM</span></li>
+                    <li><span>Saturday</span> <span>8:00 AM – 9:00 PM</span></li>
+                    <li><span>Sunday</span> <span>9:00 AM – 6:00 PM</span></li>
+                </ul>
+            </div>
+            <div class="address-block animate-up">
+                <h2>Visit Us</h2>
+                <div class="map-placeholder">
+                    📍
+                </div>
+                <div class="contact-info">
+                    <p>14 Bean Street, The Creative Quarter</p>
+                    <p>+27 21 000 1234</p>
+                    <p>hello@ostilcafe.com</p>
+                </div>
+                <a href="#" class="btn btn-outline" style="margin-top: 1.5rem;">Get Directions</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter-section animate-up">
+        <div class="container">
+            <h2>Join the Ostil Circle</h2>
+            <p class="sub-heading" style="margin-bottom: 0;">Be first to know about seasonal specials, events, and members-only offers.</p>
+            <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed!');">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit" class="btn btn-primary">Join Now</button>
+            </form>
+            <p class="spam-notice">No spam. Just good coffee news.</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="#" class="footer-logo">OSTIL</a>
+                    <p>Crafted slowly. Served warmly.</p>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#story">Our Story</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#reserve">Reservations</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Menu</h4>
+                    <ul class="footer-links">
+                        <li><a href="#menu">Specialty Coffee</a></li>
+                        <li><a href="#menu">Pastries & Bites</a></li>
+                        <li><a href="#">Wholesale Beans</a></li>
+                        <li><a href="#">Merchandise</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Follow Us</h4>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">In</a>
+                        <a href="#" class="social-icon">Fb</a>
+                        <a href="#" class="social-icon">Tk</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 Ostil Cafe. All rights reserved. Made with ☕</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Sticky Navbar
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // 2. Mobile Hamburger Menu
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('nav-links');
+            
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Close mobile menu when a link is clicked
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                });
+            });
+
+            // 3. Menu Tabs Switcher
+            const tabBtns = document.querySelectorAll('.menu-tab-btn');
+            const menuGrids = document.querySelectorAll('.menu-grid');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons and grids
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    menuGrids.forEach(g => g.classList.remove('active'));
+
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+
+                    // Show corresponding grid
+                    const targetId = btn.getAttribute('data-target');
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+
+            // 4. Scroll Animations (Intersection Observer)
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Run once
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.animate-up').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // 5. Set min date for reservation form to today
+            const dateInput = document.getElementById('date');
+            if(dateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.setAttribute('min', today);
+            }
+        });
+    </script>
+</body>
+</html>
