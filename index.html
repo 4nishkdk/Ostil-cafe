@@ -398,10 +398,16 @@
             box-shadow: var(--shadow-hover);
         }
 
-        .menu-img-placeholder {
-            height: 200px;
-            background: linear-gradient(135deg, #e3cdb8 0%, #c4673a 100%);
-        }
+        /* Update the general placeholder to be a container for images */
+.menu-img-placeholder {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Then add specific images to each card using unique IDs or nth-child */
+.menu-card:nth-child(1) .menu-img-placeholder { background-image: url('croissant.jpg'); }
+.menu-card:nth-child(2) .menu-img-placeholder { background-image: url('AvocadoToast.jpg'); }
 
         .menu-card:nth-child(even) .menu-img-placeholder {
             background: linear-gradient(135deg, #d8bfa8 0%, #a45028 100%);
@@ -659,13 +665,15 @@
             cursor: pointer;
         }
 
-        .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-        .gallery-item:nth-child(2) { background: linear-gradient(135deg, #a45028, #7a3617); }
-        .gallery-item:nth-child(3) { background: linear-gradient(135deg, #c4673a, #e3cdb8); }
-        .gallery-item:nth-child(4) { background: linear-gradient(135deg, #e3cdb8, #8c6a51); }
-        .gallery-item:nth-child(5) { background: linear-gradient(135deg, #8c6a51, #3b1f0e); grid-column: span 2; }
-        .gallery-item:nth-child(6) { background: linear-gradient(135deg, #5c3016, #c4673a); }
-
+        
+        .gallery-item:nth-child(1) { background-image: url('images/cafe-interior.jpg'); background-size: cover; }
+        .gallery-item:nth-child(2) { background-image: url('images/croissant.jpg'); background-size: cover; }
+        .gallery-item:nth-child(3) { background-image: url('images/cafe-interior.jpg'); background-size: cover; }
+        .gallery-item:nth-child(4) { background-image: url('images/croissant.jpg'); background-size: cover; }
+        .gallery-item:nth-child(5) { background-image: url('images/cafe-interior.jpg'); background-size: cover; }
+        .gallery-item:nth-child(6) { background-image: url('images/croissant.jpg'); background-size: cover; }
+/* ... and so on for all 6 items ... */
+/* ... and so on for all 6 items ... */
         .gallery-item::before {
             content: '';
             position: absolute;
